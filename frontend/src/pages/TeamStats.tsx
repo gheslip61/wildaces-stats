@@ -161,7 +161,7 @@ export default function TeamStats() {
   const allPlayerNames = data.map((r) => r.name)
 
   return (
-    <div className="p-6 max-w-5xl mx-auto">
+    <div className="p-4 md:p-6 max-w-5xl mx-auto">
       <h1 className="text-2xl font-bold text-gray-800 mb-6">Team Stats</h1>
 
       {/* Compact filter bar */}

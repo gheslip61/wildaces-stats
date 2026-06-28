@@ -68,9 +68,9 @@ export default function PlayerStats() {
   const selected = players.find((p) => p.id === selectedId)
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
+    <div className="p-4 md:p-6 max-w-6xl mx-auto">
       {/* Player selector */}
-      <div className="mb-6 flex items-center gap-4">
+      <div className="mb-6 flex flex-wrap items-center gap-4">
         <h1 className="text-2xl font-bold text-gray-800">Player Stats</h1>
         <select
           className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7b2d8b]"

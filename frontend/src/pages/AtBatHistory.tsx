@@ -63,7 +63,7 @@ export default function AtBatHistory() {
   const totalRBI = atBats.reduce((s, a) => s + (a.rbi || 0), 0)
 
   return (
-    <div className="p-6">
+    <div className="p-4 md:p-6">
       <h1 className="text-2xl font-bold text-gray-800 mb-6">At-Bat History</h1>
 
       {/* Player selector */}
@@ -87,7 +87,7 @@ export default function AtBatHistory() {
       </div>
 
       {/* Summary cards */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-3 gap-2 md:gap-4 mb-6">
         {[
           { label: 'At-Bats', value: totalAB },
           { label: 'Hits', value: totalH },

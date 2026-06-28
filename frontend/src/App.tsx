@@ -31,7 +31,7 @@ export default function App() {
         <span className="text-white font-bold text-base">Wild Aces Stats</span>
       </div>
 
-      <main className="flex-1 md:ml-56 bg-gray-50 min-h-screen pt-14 md:pt-0">
+      <main className="flex-1 md:ml-56 bg-gray-50 min-h-screen pt-14 md:pt-0 overflow-x-hidden">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/player-stats" element={<PlayerStats />} />
