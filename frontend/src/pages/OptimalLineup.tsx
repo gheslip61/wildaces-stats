@@ -45,22 +45,23 @@ function computeStats(games: PlayerGameStats[], useDecay: boolean): ComputedStat
   const sorted = [...games].sort((a, b) => b.game_date.localeCompare(a.game_date))
 
   let wAB = 0, wHits = 0, wSingles = 0, wDoubles = 0, wTriples = 0, wHRs = 0
-  let wWalks = 0, wRBI = 0
+  let wWalks = 0, wRBI = 0, wSacFlies = 0
 
   sorted.forEach((g, i) => {
     const w = useDecay ? Math.pow(DECAY, i) : 1
-    wAB      += (g.ab ?? 0) * w
-    wHits    += (g.hits ?? 0) * w
-    wSingles += (g.singles ?? 0) * w
-    wDoubles += (g.doubles ?? 0) * w
-    wTriples += (g.triples ?? 0) * w
-    wHRs     += (g.home_runs ?? 0) * w
-    wWalks   += (g.walks ?? 0) * w
-    wRBI     += (g.rbi ?? 0) * w
+    wAB       += (g.ab ?? 0) * w
+    wHits     += (g.hits ?? 0) * w
+    wSingles  += (g.singles ?? 0) * w
+    wDoubles  += (g.doubles ?? 0) * w
+    wTriples  += (g.triples ?? 0) * w
+    wHRs      += (g.home_runs ?? 0) * w
+    wWalks    += (g.walks ?? 0) * w
+    wRBI      += (g.rbi ?? 0) * w
+    wSacFlies += (g.sac_flies ?? 0) * w
   })
 
   const ba  = wAB > 0 ? wHits / wAB : 0
-  const obp = (wAB + wWalks) > 0 ? (wHits + wWalks) / (wAB + wWalks) : 0
+  const obp = (wAB + wWalks + wSacFlies) > 0 ? (wHits + wWalks) / (wAB + wWalks + wSacFlies) : 0
   const tb  = wSingles + 2 * wDoubles + 3 * wTriples + 4 * wHRs
   const slg = wAB > 0 ? tb / wAB : 0
 

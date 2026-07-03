@@ -27,10 +27,10 @@ const STAT_LABELS: Record<StatKey, string> = {
 const RATE_STATS: StatKey[] = ['ba', 'obp', 'slg', 'ops']
 
 const STAT_DEFINITIONS = [
-  { stat: 'AB', def: 'At-Bats — plate appearances excluding walks.' },
+  { stat: 'AB', def: 'At-Bats — plate appearances excluding walks and sacrifice flies.' },
   { stat: 'H', def: 'Hits — singles, doubles, triples, and home runs.' },
   { stat: 'BA', def: 'Batting Average — H / AB.' },
-  { stat: 'OBP', def: 'On-Base Percentage — (H + BB) / (AB + BB).' },
+  { stat: 'OBP', def: 'On-Base Percentage — (H + BB) / (AB + BB + SF). Sac flies count as a PA but not an AB.' },
   { stat: 'SLG', def: 'Slugging Percentage — total bases / AB.' },
   { stat: 'OPS', def: 'On-base Plus Slugging — OBP + SLG.' },
 ]

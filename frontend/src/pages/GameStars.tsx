@@ -122,8 +122,10 @@ function computeStars(atBats: GameAtBat[], gameScore: GameScore | null): PlayerP
 
     const totalBases = singles + 2 * doubles + 3 * triples + 4 * hrs
     const hits = singles + doubles + triples + hrs
-    const ab = abs.filter((a) => a.result !== 'Walk').length
-    const obp = (ab + walks) > 0 ? (hits + walks) / (ab + walks) : 0
+    const HITS = ['Single', 'Double', 'Triple', 'Home Run']
+    const sacFlies = abs.filter((a) => !HITS.includes(a.result) && a.result !== 'Walk' && (a.rbi ?? 0) >= 1).length
+    const ab = abs.filter((a) => a.result !== 'Walk' && !((!HITS.includes(a.result)) && (a.rbi ?? 0) >= 1)).length
+    const obp = (ab + walks + sacFlies) > 0 ? (hits + walks) / (ab + walks + sacFlies) : 0
     const slg = ab > 0 ? totalBases / ab : 0
 
     results.push({

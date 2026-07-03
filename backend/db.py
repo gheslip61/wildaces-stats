@@ -25,8 +25,9 @@ def compute_rates(row: dict) -> dict:
     home_runs = row.get("home_runs") or 0
     walks = row.get("walks") or 0
 
+    sac_flies = row.get("sac_flies") or 0
     ba = hits / ab if ab > 0 else 0.0
-    obp = (hits + walks) / (ab + walks) if (ab + walks) > 0 else 0.0
+    obp = (hits + walks) / (ab + walks + sac_flies) if (ab + walks + sac_flies) > 0 else 0.0
     slg = (singles + doubles * 2 + triples * 3 + home_runs * 4) / ab if ab > 0 else 0.0
     ops = obp + slg
 
@@ -50,7 +51,7 @@ def fetch_player_stats(player_id: int):
             cur.execute(
                 """
                 SELECT
-                    SUM(CASE WHEN result != 'Walk' THEN 1 ELSE 0 END) AS ab,
+                    SUM(CASE WHEN result != 'Walk' AND NOT (result NOT IN ('Single','Double','Triple','Home Run','Walk') AND COALESCE(rbi,0) >= 1) THEN 1 ELSE 0 END) AS ab,
                     SUM(CASE WHEN result IN ('Single','Double','Triple','Home Run') THEN 1 ELSE 0 END) AS hits,
                     SUM(CASE WHEN result = 'Single' THEN 1 ELSE 0 END) AS singles,
                     SUM(CASE WHEN result = 'Double' THEN 1 ELSE 0 END) AS doubles,
@@ -58,6 +59,7 @@ def fetch_player_stats(player_id: int):
                     SUM(CASE WHEN result = 'Home Run' THEN 1 ELSE 0 END) AS home_runs,
                     SUM(CASE WHEN result = 'Walk' THEN 1 ELSE 0 END) AS walks,
                     SUM(CASE WHEN result = 'Strikeout' THEN 1 ELSE 0 END) AS strikeouts,
+                    SUM(CASE WHEN result NOT IN ('Single','Double','Triple','Home Run','Walk') AND COALESCE(rbi,0) >= 1 THEN 1 ELSE 0 END) AS sac_flies,
                     SUM(rbi) AS rbi
                 FROM at_bats WHERE player_id = %s;
                 """,
@@ -78,7 +80,7 @@ def fetch_game_stats(player_id: int):
                 SELECT
                     game_date,
                     opponent,
-                    SUM(CASE WHEN result != 'Walk' THEN 1 ELSE 0 END) AS ab,
+                    SUM(CASE WHEN result != 'Walk' AND NOT (result NOT IN ('Single','Double','Triple','Home Run','Walk') AND COALESCE(rbi,0) >= 1) THEN 1 ELSE 0 END) AS ab,
                     SUM(CASE WHEN result IN ('Single','Double','Triple','Home Run') THEN 1 ELSE 0 END) AS hits,
                     SUM(CASE WHEN result = 'Single' THEN 1 ELSE 0 END) AS singles,
                     SUM(CASE WHEN result = 'Double' THEN 1 ELSE 0 END) AS doubles,
@@ -86,6 +88,7 @@ def fetch_game_stats(player_id: int):
                     SUM(CASE WHEN result = 'Home Run' THEN 1 ELSE 0 END) AS home_runs,
                     SUM(CASE WHEN result = 'Walk' THEN 1 ELSE 0 END) AS walks,
                     SUM(CASE WHEN result = 'Strikeout' THEN 1 ELSE 0 END) AS strikeouts,
+                    SUM(CASE WHEN result NOT IN ('Single','Double','Triple','Home Run','Walk') AND COALESCE(rbi,0) >= 1 THEN 1 ELSE 0 END) AS sac_flies,
                     SUM(rbi) AS rbi
                 FROM at_bats
                 WHERE player_id = %s
@@ -108,7 +111,7 @@ def fetch_team_stats():
                 SELECT
                     p.id AS player_id,
                     p.name,
-                    SUM(CASE WHEN a.result != 'Walk' THEN 1 ELSE 0 END) AS ab,
+                    SUM(CASE WHEN a.result != 'Walk' AND NOT (a.result NOT IN ('Single','Double','Triple','Home Run','Walk') AND COALESCE(a.rbi,0) >= 1) THEN 1 ELSE 0 END) AS ab,
                     SUM(CASE WHEN a.result IN ('Single','Double','Triple','Home Run') THEN 1 ELSE 0 END) AS hits,
                     SUM(CASE WHEN a.result = 'Single' THEN 1 ELSE 0 END) AS singles,
                     SUM(CASE WHEN a.result = 'Double' THEN 1 ELSE 0 END) AS doubles,
@@ -116,6 +119,7 @@ def fetch_team_stats():
                     SUM(CASE WHEN a.result = 'Home Run' THEN 1 ELSE 0 END) AS home_runs,
                     SUM(CASE WHEN a.result = 'Walk' THEN 1 ELSE 0 END) AS walks,
                     SUM(CASE WHEN a.result = 'Strikeout' THEN 1 ELSE 0 END) AS strikeouts,
+                    SUM(CASE WHEN a.result NOT IN ('Single','Double','Triple','Home Run','Walk') AND COALESCE(a.rbi,0) >= 1 THEN 1 ELSE 0 END) AS sac_flies,
                     SUM(a.rbi) AS rbi
                 FROM at_bats a
                 JOIN players p ON p.id = a.player_id
@@ -152,7 +156,7 @@ def fetch_all_player_game_stats():
                     p.name,
                     a.game_date::text,
                     a.opponent,
-                    SUM(CASE WHEN a.result != 'Walk' THEN 1 ELSE 0 END) AS ab,
+                    SUM(CASE WHEN a.result != 'Walk' AND NOT (a.result NOT IN ('Single','Double','Triple','Home Run','Walk') AND COALESCE(a.rbi,0) >= 1) THEN 1 ELSE 0 END) AS ab,
                     SUM(CASE WHEN a.result IN ('Single','Double','Triple','Home Run') THEN 1 ELSE 0 END) AS hits,
                     SUM(CASE WHEN a.result = 'Single' THEN 1 ELSE 0 END) AS singles,
                     SUM(CASE WHEN a.result = 'Double' THEN 1 ELSE 0 END) AS doubles,
@@ -160,6 +164,7 @@ def fetch_all_player_game_stats():
                     SUM(CASE WHEN a.result = 'Home Run' THEN 1 ELSE 0 END) AS home_runs,
                     SUM(CASE WHEN a.result = 'Walk' THEN 1 ELSE 0 END) AS walks,
                     SUM(CASE WHEN a.result = 'Strikeout' THEN 1 ELSE 0 END) AS strikeouts,
+                    SUM(CASE WHEN a.result NOT IN ('Single','Double','Triple','Home Run','Walk') AND COALESCE(a.rbi,0) >= 1 THEN 1 ELSE 0 END) AS sac_flies,
                     SUM(a.rbi) AS rbi
                 FROM at_bats a
                 JOIN players p ON p.id = a.player_id
@@ -181,7 +186,7 @@ def fetch_team_stats_for_game(game_date: str, opponent: str):
                 SELECT
                     p.id AS player_id,
                     p.name,
-                    SUM(CASE WHEN a.result != 'Walk' THEN 1 ELSE 0 END) AS ab,
+                    SUM(CASE WHEN a.result != 'Walk' AND NOT (a.result NOT IN ('Single','Double','Triple','Home Run','Walk') AND COALESCE(a.rbi,0) >= 1) THEN 1 ELSE 0 END) AS ab,
                     SUM(CASE WHEN a.result IN ('Single','Double','Triple','Home Run') THEN 1 ELSE 0 END) AS hits,
                     SUM(CASE WHEN a.result = 'Single' THEN 1 ELSE 0 END) AS singles,
                     SUM(CASE WHEN a.result = 'Double' THEN 1 ELSE 0 END) AS doubles,
@@ -189,6 +194,7 @@ def fetch_team_stats_for_game(game_date: str, opponent: str):
                     SUM(CASE WHEN a.result = 'Home Run' THEN 1 ELSE 0 END) AS home_runs,
                     SUM(CASE WHEN a.result = 'Walk' THEN 1 ELSE 0 END) AS walks,
                     SUM(CASE WHEN a.result = 'Strikeout' THEN 1 ELSE 0 END) AS strikeouts,
+                    SUM(CASE WHEN a.result NOT IN ('Single','Double','Triple','Home Run','Walk') AND COALESCE(a.rbi,0) >= 1 THEN 1 ELSE 0 END) AS sac_flies,
                     SUM(a.rbi) AS rbi
                 FROM at_bats a
                 JOIN players p ON p.id = a.player_id

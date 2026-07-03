@@ -218,6 +218,7 @@ export interface PlayerGameStats {
   home_runs: number
   walks: number
   strikeouts: number
+  sac_flies: number
   rbi: number
 }
 
