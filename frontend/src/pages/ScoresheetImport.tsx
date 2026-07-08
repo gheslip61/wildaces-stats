@@ -171,10 +171,6 @@ export default function ScoresheetImport() {
   return (
     <div className="p-6 max-w-5xl">
       <h1 className="text-2xl font-bold text-gray-800 mb-1">Scoresheet Import</h1>
-      <p className="text-sm text-gray-500 mb-6">
-        Upload a photo of a scoresheet, let AI extract the at-bats, then review and correct
-        everything before it's saved. Nothing touches the database until you confirm.
-      </p>
 
       {/* Step 1 — upload */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5 mb-6">

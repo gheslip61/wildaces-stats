@@ -235,11 +235,11 @@ export default function OptimalLineup() {
         </div>
       </div>
 
-      <p className="text-sm text-gray-500 mb-6">
-        {useDecay
-          ? `Recency-weighted batting order — each game back is worth ${Math.round(DECAY * 100)}% of the previous one, so hot recent play drives the rankings.`
-          : 'Algorithm-generated batting order based on full season statistics.'}
-      </p>
+      {useDecay && (
+        <p className="text-sm text-gray-500 mb-6">
+          {`Recency-weighted batting order — each game back is worth ${Math.round(DECAY * 100)}% of the previous one, so hot recent play drives the rankings.`}
+        </p>
+      )}
 
       {loading ? (
         <p className="text-gray-400 italic text-sm">Loading…</p>

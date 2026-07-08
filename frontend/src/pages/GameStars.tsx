@@ -267,7 +267,7 @@ export default function GameStars() {
     <div className="p-4 md:p-6">
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
-          <h1 className="text-2xl font-bold text-gray-800">3 Stars of the Game</h1>
+          <h1 className="text-2xl font-bold text-gray-800">3 Stars</h1>
           {games.length > 0 && (
             <select
               value={selectedIdx}
@@ -287,7 +287,7 @@ export default function GameStars() {
           <div className="bg-[#1a2d4a] px-6 py-4 flex items-center gap-3">
             <span className="text-2xl">⭐</span>
             <h2 className="text-white font-black text-xl tracking-widest uppercase">
-              3 Stars of the Game
+              3 Stars
             </h2>
           </div>
 

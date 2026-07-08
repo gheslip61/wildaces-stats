@@ -55,9 +55,7 @@ export default function Home() {
       <h1 className="text-4xl font-extrabold text-[#7b2d8b] mb-2 text-center">
         Wild Aces Stats Center
       </h1>
-      <p className="text-gray-500 mb-10 text-center text-lg">
-        Your complete baseball stats dashboard
-      </p>
+      <div className="mb-10" />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 w-full max-w-4xl">
         {cards.map((card) => (
