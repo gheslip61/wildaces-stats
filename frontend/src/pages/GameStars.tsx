@@ -212,14 +212,14 @@ function StarColumn({ rank, player, opponent, hasLeverage }: StarColumnProps) {
       <div style={{ height: 3, backgroundColor: color }} />
 
       {/* Name */}
-      <div className="bg-[#0a1520] py-1.5 px-1 text-center">
+      <div className="bg-[#5c1f6e] py-1.5 px-1 text-center">
         <p className="text-white font-bold text-xs uppercase truncate leading-tight">
           {player.name.split(' ').pop()}
         </p>
       </div>
 
       {/* Stats */}
-      <div className="flex-1 bg-[#0d1b2a] py-3 px-1 md:py-6 md:px-4 text-center">
+      <div className="flex-1 bg-[#3d1247] py-3 px-1 md:py-6 md:px-4 text-center">
         <p className="font-black text-3xl md:text-5xl mb-2 md:mb-4" style={{ color }}>
           {RANK_LABELS[rank]}
         </p>
@@ -287,7 +287,7 @@ export default function GameStars() {
         </div>
 
         <div className="rounded-xl overflow-hidden shadow-2xl">
-          <div className="bg-[#1a2d4a] px-4 py-3 md:px-6 md:py-4 flex items-center gap-3">
+          <div className="bg-[#7b2d8b] px-4 py-3 md:px-6 md:py-4 flex items-center gap-3">
             <span className="text-2xl">⭐</span>
             <h2 className="text-white font-black text-xl tracking-widest uppercase">
               3 Stars
@@ -295,9 +295,9 @@ export default function GameStars() {
           </div>
 
           {loading ? (
-            <div className="bg-[#0d1b2a] py-24 text-center text-gray-500">Loading…</div>
+            <div className="bg-[#3d1247] py-24 text-center text-gray-500">Loading…</div>
           ) : stars.length === 0 ? (
-            <div className="bg-[#0d1b2a] py-24 text-center text-gray-500">
+            <div className="bg-[#3d1247] py-24 text-center text-gray-500">
               No at-bats recorded for this game.
             </div>
           ) : (
