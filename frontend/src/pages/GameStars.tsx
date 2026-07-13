@@ -62,7 +62,9 @@ interface PlayerPerf {
   walks: number
   rbi: number
   ab: number
+  pa: number
   score: number
+  scorePerPA: number
   totalBases: number
   lateScore: number // weighted score from innings 5+, used as tie-breaker
   ops: number
@@ -116,9 +118,12 @@ function computeStars(atBats: GameAtBat[], gameScore: GameScore | null): PlayerP
     }
 
     // Flat RBI bonus — applied to the game total, not per-PA.
-    // To make it leverage-weighted instead, move `0.30 * ab.rbi * leverage`
-    // into the PA loop above and remove this line.
     const score = weightedScore + 0.30 * totalRbi
+
+    const pa = abs.length
+    // Normalize by PA so a player with fewer at-bats isn't penalized for
+    // batting lower in the order. A 2-for-2 and a 4-for-4 should rank equally.
+    const scorePerPA = pa > 0 ? score / pa : 0
 
     const totalBases = singles + 2 * doubles + 3 * triples + 4 * hrs
     const hits = singles + doubles + triples + hrs
@@ -138,17 +143,19 @@ function computeStars(atBats: GameAtBat[], gameScore: GameScore | null): PlayerP
       walks,
       rbi: totalRbi,
       ab,
+      pa,
       score,
+      scorePerPA,
       totalBases,
       lateScore,
       ops: obp + slg,
     })
   }
 
-  // Sort: 1) Score  2) Total bases  3) OPS  4) Late-inning score
+  // Sort: 1) Score/PA (normalized for batting order)  2) Raw score  3) OPS  4) Late-inning score
   results.sort((a, b) => {
+    if (b.scorePerPA !== a.scorePerPA) return b.scorePerPA - a.scorePerPA
     if (b.score !== a.score) return b.score - a.score
-    if (b.totalBases !== a.totalBases) return b.totalBases - a.totalBases
     if (b.ops !== a.ops) return b.ops - a.ops
     return b.lateScore - a.lateScore
   })
