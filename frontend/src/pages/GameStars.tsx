@@ -213,7 +213,7 @@ function StarColumn({ rank, player, opponent, hasLeverage }: StarColumnProps) {
       {/* Name */}
       <div className="bg-[#5c1f6e] py-1.5 px-1 text-center">
         <p className="text-white font-bold text-xs uppercase truncate leading-tight">
-          {player.name}
+          {player.name.split(' ').pop()}
         </p>
       </div>
 
