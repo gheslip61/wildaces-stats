@@ -214,7 +214,7 @@ function StarColumn({ rank, player, opponent, hasLeverage }: StarColumnProps) {
       {/* Name */}
       <div className="bg-[#5c1f6e] py-1.5 px-1 text-center">
         <p className="text-white font-bold text-xs uppercase truncate leading-tight">
-          {player.name.split(' ').pop()}
+          {player.name}
         </p>
       </div>
 
@@ -290,7 +290,7 @@ export default function GameStars() {
           <div className="bg-[#7b2d8b] px-4 py-3 md:px-6 md:py-4 flex items-center gap-3">
             <span className="text-2xl">⭐</span>
             <h2 className="text-white font-black text-xl tracking-widest uppercase">
-              3 Stars
+              3 Aces{selectedGame ? ` vs ${selectedGame.opponent}` : ''}
             </h2>
           </div>
 
