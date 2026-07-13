@@ -193,38 +193,41 @@ interface StarColumnProps {
 function StarColumn({ rank, player, opponent, hasLeverage }: StarColumnProps) {
   const color = RANK_HEX[rank]
   const statLine = buildStatLine(player)
-  const sub = `${player.singles + player.doubles + player.triples + player.home_runs}-${player.ab}` +
-    (player.rbi > 0 ? `, ${player.rbi} RBI` : '')
+  const hits = player.singles + player.doubles + player.triples + player.home_runs
+  const sub = `${hits}-${player.ab}${player.rbi > 0 ? `, ${player.rbi} RBI` : ''}`
 
   return (
     <div
       className="flex flex-col"
       style={{ borderLeft: rank > 0 ? '1px solid rgba(255,255,255,0.1)' : undefined }}
     >
-      <div className="overflow-hidden" style={{ aspectRatio: '3 / 4' }}>
+      {/* Photo — square on mobile, taller on desktop */}
+      <div className="overflow-hidden" style={{ aspectRatio: '1 / 1' }}>
         <PlayerPhoto
           name={player.name}
           className="w-full h-full object-cover object-top !rounded-none"
         />
       </div>
 
-      <div style={{ height: 4, backgroundColor: color }} />
+      <div style={{ height: 3, backgroundColor: color }} />
 
-      <div className="bg-[#0a1520] py-2 px-3 text-center">
-        <p className="text-white font-bold text-sm uppercase tracking-widest truncate">
-          {player.name}
+      {/* Name */}
+      <div className="bg-[#0a1520] py-1.5 px-1 text-center">
+        <p className="text-white font-bold text-xs uppercase truncate leading-tight">
+          {player.name.split(' ').pop()}
         </p>
       </div>
 
-      <div className="flex-1 bg-[#0d1b2a] py-6 px-4 text-center">
-        <p className="font-black text-5xl mb-4" style={{ color }}>
+      {/* Stats */}
+      <div className="flex-1 bg-[#0d1b2a] py-3 px-1 md:py-6 md:px-4 text-center">
+        <p className="font-black text-3xl md:text-5xl mb-2 md:mb-4" style={{ color }}>
           {RANK_LABELS[rank]}
         </p>
-        <p className="text-white font-semibold text-base leading-snug">{statLine}</p>
-        <p className="text-gray-400 text-sm mt-1">{sub}</p>
-        <p className="text-gray-500 text-xs mt-4 uppercase tracking-widest">vs {opponent}</p>
-        <p className="text-gray-600 text-xs mt-2">
-          Score: {player.score.toFixed(2)}{!hasLeverage && ' (no leverage — add a game score)'}
+        <p className="text-white font-semibold text-xs md:text-base leading-snug">{statLine}</p>
+        <p className="text-gray-400 text-xs mt-1">{sub}</p>
+        <p className="hidden md:block text-gray-500 text-xs mt-4 uppercase tracking-widest">vs {opponent}</p>
+        <p className="hidden md:block text-gray-600 text-xs mt-2">
+          Score: {player.score.toFixed(2)}{!hasLeverage && ' (no leverage)'}
         </p>
       </div>
     </div>
@@ -284,7 +287,7 @@ export default function GameStars() {
         </div>
 
         <div className="rounded-xl overflow-hidden shadow-2xl">
-          <div className="bg-[#1a2d4a] px-6 py-4 flex items-center gap-3">
+          <div className="bg-[#1a2d4a] px-4 py-3 md:px-6 md:py-4 flex items-center gap-3">
             <span className="text-2xl">⭐</span>
             <h2 className="text-white font-black text-xl tracking-widest uppercase">
               3 Stars
