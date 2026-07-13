@@ -287,10 +287,9 @@ export default function GameStars() {
         </div>
 
         <div className="rounded-xl overflow-hidden shadow-2xl">
-          <div className="bg-[#7b2d8b] px-4 py-3 md:px-6 md:py-4 flex items-center gap-3">
-            <span className="text-2xl">⭐</span>
+          <div className="bg-[#7b2d8b] px-4 py-3 md:px-6 md:py-4 flex items-center justify-center">
             <h2 className="text-white font-black text-xl tracking-widest uppercase">
-              3 Aces{selectedGame ? ` vs ${selectedGame.opponent}` : ''}
+              ⭐ 3 Aces ⭐
             </h2>
           </div>
 
