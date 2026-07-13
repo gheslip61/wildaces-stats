@@ -201,8 +201,7 @@ function StarColumn({ rank, player, opponent, hasLeverage }: StarColumnProps) {
       className="flex flex-col"
       style={{ borderLeft: rank > 0 ? '1px solid rgba(255,255,255,0.1)' : undefined }}
     >
-      {/* Photo — square on mobile, taller on desktop */}
-      <div className="overflow-hidden" style={{ aspectRatio: '1 / 1' }}>
+      <div className="overflow-hidden h-28 md:h-44">
         <PlayerPhoto
           name={player.name}
           className="w-full h-full object-cover object-top !rounded-none"
