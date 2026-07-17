@@ -1,4 +1,4 @@
-# Wild Aces Stats
+# Recreational Slo-Pitch League Stat Tracker
 
 > A full-stack slo-pitch stats dashboard for the Wild Aces (Recreational Slo-Pitch Team) that track at-bats, player performance, game scores, and more.
 
