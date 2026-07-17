@@ -17,13 +17,13 @@ Wild Aces Stats is a private slo-pitch stats tracker built for the Wild Aces rec
 
 The backend is a Python/FastAPI REST API connected to a PostgreSQL database. The frontend is a React + TypeScript app built with Vite and Tailwind CSS.
 
-## 🚀 Usage
+## Usage
 
 The app is live at **https://519wildacesstats.vercel.app**.
 
 Data entry and scoresheet import are password-protected.
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |---|---|
