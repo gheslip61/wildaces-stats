@@ -2,16 +2,16 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 
 const navItems = [
-  { to: '/', label: 'Home', icon: '🏠' },
-  { to: '/player-stats', label: 'Player Stats', icon: '👤' },
-  { to: '/team-stats', label: 'Team Stats', icon: '📊' },
-  { to: '/stat-leaders', label: 'Stat Leaders', icon: '🏆' },
-  { to: '/at-bat-history', label: 'At-Bat History', icon: '📋' },
-  { to: '/optimal-lineup', label: 'Optimal Lineup', icon: '⚾' },
-  { to: '/data-entry', label: 'Data Entry', icon: '✏️' },
-  { to: '/scoresheet-import', label: 'Scoresheet Import', icon: '📷' },
-  { to: '/game-stars', label: '3 Stars', icon: '⭐' },
-  { to: '/game-scores', label: 'Game Scores', icon: '🏟️' },
+  { to: '/', label: 'Home' },
+  { to: '/player-stats', label: 'Player Stats' },
+  { to: '/team-stats', label: 'Team Stats' },
+  { to: '/stat-leaders', label: 'Stat Leaders' },
+  { to: '/at-bat-history', label: 'At-Bat History' },
+  { to: '/optimal-lineup', label: 'Optimal Lineup' },
+  { to: '/data-entry', label: 'Data Entry' },
+  { to: '/scoresheet-import', label: 'Scoresheet Import' },
+  { to: '/game-stars', label: '3 Stars' },
+  { to: '/game-scores', label: 'Game Scores' },
 ]
 
 interface SidebarProps {
@@ -59,7 +59,6 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
               }`
             }
           >
-            <span>{item.icon}</span>
             <span>{item.label}</span>
           </NavLink>
         ))}

@@ -1,42 +1,12 @@
 import { Link } from 'react-router-dom'
 
 const cards = [
-  {
-    to: '/player-stats',
-    icon: '👤',
-    title: 'Player Stats',
-    desc: 'Season totals, game logs, and rate stats for each player.',
-  },
-  {
-    to: '/team-stats',
-    icon: '📊',
-    title: 'Team Stats',
-    desc: 'Full team stats by season or individual game.',
-  },
-  {
-    to: '/stat-leaders',
-    icon: '🏆',
-    title: 'Stat Leaders',
-    desc: 'Who leads the team in each category?',
-  },
-  {
-    to: '/at-bat-history',
-    icon: '📋',
-    title: 'At-Bat History',
-    desc: 'Review every plate appearance by player.',
-  },
-  {
-    to: '/optimal-lineup',
-    icon: '⚾',
-    title: 'Optimal Lineup',
-    desc: 'Algorithm-generated batting order based on current stats.',
-  },
-  {
-    to: '/data-entry',
-    icon: '✏️',
-    title: 'Data Entry',
-    desc: 'Log at-bats, manage players, and update game info.',
-  },
+  { to: '/player-stats', title: 'Player Stats', desc: 'Season totals, game logs, and rate stats for each player.' },
+  { to: '/team-stats', title: 'Team Stats', desc: 'Full team stats by season or individual game.' },
+  { to: '/stat-leaders', title: 'Stat Leaders', desc: 'Who leads the team in each category?' },
+  { to: '/at-bat-history', title: 'At-Bat History', desc: 'Review every plate appearance by player.' },
+  { to: '/optimal-lineup', title: 'Optimal Lineup', desc: 'Algorithm-generated batting order based on current stats.' },
+  { to: '/data-entry', title: 'Data Entry', desc: 'Log at-bats, manage players, and update game info.' },
 ]
 
 export default function Home() {
@@ -64,7 +34,6 @@ export default function Home() {
             to={card.to}
             className="bg-white rounded-xl shadow hover:shadow-md border border-gray-100 hover:border-[#7b2d8b] transition-all p-6 flex flex-col gap-2 group"
           >
-            <span className="text-3xl">{card.icon}</span>
             <h2 className="text-lg font-bold text-gray-800 group-hover:text-[#7b2d8b] transition-colors">
               {card.title}
             </h2>
