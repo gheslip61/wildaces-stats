@@ -32,8 +32,3 @@ Data entry and scoresheet import are password-protected.
 | Database | PostgreSQL |
 | AI | Anthropic Claude (scoresheet scanning) |
 | Hosting | Vercel (frontend) + Railway (backend) |
-
-And in `frontend/.env.local`:
-```
-VITE_API_URL=http://localhost:8000
-```
