@@ -91,7 +91,7 @@ export default function AllStarVoting() {
   return (
     <div className="p-4 md:p-6 max-w-5xl mx-auto">
       {/* Header */}
-      <div className="sticky top-14 md:top-0 z-30 bg-gray-50 pb-4 pt-2">
+      <div className="pb-4 pt-2">
         <div className="flex items-center justify-between flex-wrap gap-3">
           <div>
             <h1 className="text-2xl font-bold text-gray-800">All-Star Vote</h1>

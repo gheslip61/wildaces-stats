@@ -66,7 +66,15 @@ export default function AllStarResults() {
         </div>
         <div className="p-4 space-y-3">
           {results.map((player, i) => (
-            <div key={player.player_id} className="flex items-center gap-3">
+            <div key={player.player_id} className="space-y-0">
+            {i === 5 && (
+              <div className="flex items-center gap-2 mb-3">
+                <div className="flex-1 h-px bg-[#7b2d8b]/30" />
+                <span className="text-xs font-semibold text-[#7b2d8b] uppercase tracking-wider whitespace-nowrap">All-Star cutoff</span>
+                <div className="flex-1 h-px bg-[#7b2d8b]/30" />
+              </div>
+            )}
+            <div className="flex items-center gap-3">
               <span className="text-gray-400 text-xs w-4 text-right shrink-0">{i + 1}</span>
               <div className="w-8 h-8 shrink-0 overflow-hidden rounded-full border border-gray-200">
                 <PlayerPhoto
@@ -122,6 +130,7 @@ export default function AllStarResults() {
                   )}
                 </div>
               </div>
+            </div>
             </div>
           ))}
         </div>
