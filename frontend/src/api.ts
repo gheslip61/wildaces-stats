@@ -263,3 +263,32 @@ export async function getOptimalLineup(): Promise<LineupSpot[]> {
   const res = await client.get<LineupSpot[]>('/api/lineup/optimal')
   return res.data
 }
+
+// All-Star Voting
+export interface AllStarVoteItem {
+  player_id: number
+  vote_weight: number
+}
+
+export interface AllStarResult {
+  player_id: number
+  name: string
+  total_votes: number
+  votes_3: number
+  votes_2: number
+  votes_1: number
+}
+
+export async function checkAllStarVote(voterId: string): Promise<boolean> {
+  const res = await client.get<{ has_voted: boolean }>('/api/allstar/check', { params: { voter_id: voterId } })
+  return res.data.has_voted
+}
+
+export async function submitAllStarVote(voterId: string, votes: AllStarVoteItem[]): Promise<void> {
+  await client.post('/api/allstar/vote', { voter_id: voterId, votes })
+}
+
+export async function getAllStarResults(): Promise<AllStarResult[]> {
+  const res = await client.get<AllStarResult[]>('/api/allstar/results')
+  return res.data
+}

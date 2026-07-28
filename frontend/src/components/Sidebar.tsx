@@ -12,6 +12,8 @@ const navItems = [
   { to: '/scoresheet-import', label: 'Scoresheet Import' },
   { to: '/game-stars', label: '3 Stars' },
   { to: '/game-scores', label: 'Game Scores' },
+  { to: '/all-star-voting', label: 'All-Star Vote' },
+  { to: '/all-star-results', label: 'All-Star Results' },
 ]
 
 interface SidebarProps {

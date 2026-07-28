@@ -376,3 +376,51 @@ def delete_at_bat(at_bat_id: int):
         conn.commit()
     finally:
         conn.close()
+
+
+def check_allstar_vote(voter_id: str) -> bool:
+    conn = get_connection()
+    try:
+        with conn.cursor() as cur:
+            cur.execute("SELECT COUNT(*) FROM allstar_votes WHERE voter_id = %s;", (voter_id,))
+            return cur.fetchone()[0] > 0
+    finally:
+        conn.close()
+
+
+def submit_allstar_votes(voter_id: str, votes: list) -> None:
+    conn = get_connection()
+    try:
+        with conn.cursor() as cur:
+            for vote in votes:
+                cur.execute(
+                    "INSERT INTO allstar_votes (voter_id, player_id, vote_weight) VALUES (%s, %s, %s);",
+                    (voter_id, vote["player_id"], vote["vote_weight"]),
+                )
+        conn.commit()
+    finally:
+        conn.close()
+
+
+def fetch_allstar_results() -> list:
+    conn = get_connection()
+    try:
+        with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cur:
+            cur.execute(
+                """
+                SELECT
+                    p.id AS player_id,
+                    p.name,
+                    COALESCE(SUM(v.vote_weight), 0) AS total_votes,
+                    COALESCE(SUM(CASE WHEN v.vote_weight = 3 THEN 1 ELSE 0 END), 0) AS votes_3,
+                    COALESCE(SUM(CASE WHEN v.vote_weight = 2 THEN 1 ELSE 0 END), 0) AS votes_2,
+                    COALESCE(SUM(CASE WHEN v.vote_weight = 1 THEN 1 ELSE 0 END), 0) AS votes_1
+                FROM players p
+                LEFT JOIN allstar_votes v ON v.player_id = p.id
+                GROUP BY p.id, p.name
+                ORDER BY total_votes DESC, p.name;
+                """
+            )
+            return [dict(r) for r in cur.fetchall()]
+    finally:
+        conn.close()

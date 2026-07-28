@@ -23,6 +23,8 @@ from models import (
     AtBatBulkCreate,
     GameScore,
     GameScoreCreate,
+    AllStarVoteSubmit,
+    AllStarResult,
 )
 
 load_dotenv()
@@ -290,3 +292,30 @@ def get_optimal_lineup():
             )
         )
     return result
+
+
+# ---------------------------------------------------------------------------
+# All-Star Voting
+# ---------------------------------------------------------------------------
+
+@app.get("/api/allstar/check")
+def check_allstar_vote(voter_id: str = Query(...)):
+    return {"has_voted": db.check_allstar_vote(voter_id)}
+
+
+@app.post("/api/allstar/vote")
+def submit_allstar_vote(body: AllStarVoteSubmit):
+    if db.check_allstar_vote(body.voter_id):
+        raise HTTPException(status_code=409, detail="Already voted")
+    if len(body.votes) != 5:
+        raise HTTPException(status_code=400, detail="Must submit exactly 5 votes")
+    weights = sorted([v.vote_weight for v in body.votes])
+    if weights != [1, 1, 2, 2, 3]:
+        raise HTTPException(status_code=400, detail="Invalid vote weights")
+    db.submit_allstar_votes(body.voter_id, [v.dict() for v in body.votes])
+    return {"success": True}
+
+
+@app.get("/api/allstar/results", response_model=List[AllStarResult])
+def get_allstar_results():
+    return db.fetch_allstar_results()

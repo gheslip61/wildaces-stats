@@ -141,3 +141,22 @@ class LineupSpot(BaseModel):
     hits: int
     home_runs: int
     rbi: int
+
+
+class AllStarVoteItem(BaseModel):
+    player_id: int
+    vote_weight: int
+
+
+class AllStarVoteSubmit(BaseModel):
+    voter_id: str
+    votes: list[AllStarVoteItem]
+
+
+class AllStarResult(BaseModel):
+    player_id: int
+    name: str
+    total_votes: int
+    votes_3: int
+    votes_2: int
+    votes_1: int

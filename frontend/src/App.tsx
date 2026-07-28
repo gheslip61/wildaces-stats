@@ -11,6 +11,8 @@ import DataEntry from './pages/DataEntry'
 import ScoresheetImport from './pages/ScoresheetImport'
 import GameStars from './pages/GameStars'
 import GameScores from './pages/GameScores'
+import AllStarVoting from './pages/AllStarVoting'
+import AllStarResults from './pages/AllStarResults'
 
 export default function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -43,6 +45,8 @@ export default function App() {
           <Route path="/scoresheet-import" element={<ScoresheetImport />} />
           <Route path="/game-stars" element={<GameStars />} />
           <Route path="/game-scores" element={<GameScores />} />
+          <Route path="/all-star-voting" element={<AllStarVoting />} />
+          <Route path="/all-star-results" element={<AllStarResults />} />
         </Routes>
       </main>
     </div>
