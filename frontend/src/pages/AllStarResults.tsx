@@ -59,36 +59,6 @@ export default function AllStarResults() {
         )}
       </div>
 
-      {/* Top 3 podium */}
-      {results.length >= 3 && (
-        <div className="grid grid-cols-3 gap-3 mb-8">
-          {results.slice(0, 3).map((player, i) => {
-            const medals = ['🥇', '🥈', '🥉']
-            const colors = ['#FFD700', '#C0C0C0', '#CD7F32']
-            return (
-              <div
-                key={player.player_id}
-                className="rounded-xl overflow-hidden border-2 text-center"
-                style={{ borderColor: colors[i] }}
-              >
-                <div className="h-24 overflow-hidden">
-                  <PlayerPhoto
-                    name={player.name}
-                    className="w-full h-full object-cover object-top !rounded-none"
-                  />
-                </div>
-                <div className="p-2 bg-white">
-                  <p className="text-lg">{medals[i]}</p>
-                  <p className="font-bold text-sm text-gray-800 truncate">{player.name.split(' ').pop()}</p>
-                  <p className="text-[#7b2d8b] font-black text-lg">{player.total_votes}</p>
-                  <p className="text-gray-400 text-xs">pts</p>
-                </div>
-              </div>
-            )
-          })}
-        </div>
-      )}
-
       {/* Bar chart */}
       <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
         <div className="bg-[#0d1b2a] px-4 py-3">
