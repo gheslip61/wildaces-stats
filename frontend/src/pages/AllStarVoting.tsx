@@ -177,7 +177,7 @@ export default function AllStarVoting() {
 
               {/* Info */}
               <div className="p-2">
-                <p className="font-bold text-sm text-gray-800 truncate">{player.name}</p>
+                <p className="font-bold text-sm text-gray-800 truncate text-center">{player.name}</p>
                 <div className="grid grid-cols-3 gap-x-1 mt-1.5">
                   {[
                     { label: 'BA', val: player.ba.toFixed(3) },
